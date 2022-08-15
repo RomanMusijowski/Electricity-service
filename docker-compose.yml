@@ -1,0 +1,31 @@
+version: '3'
+services:
+  postgres_db:
+    container_name: electricity_system_db
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=devtest
+      - POSTGRES_PASSWORD=devtest
+      - POSTGRES_DB=electricity
+    ports:
+      - 1234:5432
+    networks:
+      - electricity-network
+
+  app-server:
+    build:
+      context: .
+    container_name: electricity_system_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/electricity
+    depends_on:
+      - postgres_db
+    networks:
+      - electricity-network
+    ports:
+      - 8888:8080
+    restart: on-failure
+
+networks:
+  electricity-network:
+    driver: bridge
