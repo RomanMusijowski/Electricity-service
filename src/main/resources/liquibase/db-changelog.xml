@@ -1,0 +1,281 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet author="Dev" id="create role table">
+        <createTable tableName="role">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(60)"/>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="role_pkey" tableName="role"/>
+    </changeSet>
+
+    <changeSet author="Dev" id="create account table">
+        <createTable tableName="account">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="account_pkey" tableName="account"/>
+    </changeSet>
+
+    <changeSet id="add table account roles" author="Dev">
+        <createTable tableName="account_roles">
+            <column name="id" autoIncrement="true" type="BIGINT"/>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="account_roles"
+                       columnNames="id"
+                       constraintName="accountroles_id_pkey"/>
+
+        <addForeignKeyConstraint baseTableName="account_roles" baseColumnNames="account_id"
+                                 constraintName="fk_accountroles_accountid" referencedTableName="account"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="account_roles" baseColumnNames="role_id"
+                                 constraintName="fk_accountroles_roleid" referencedTableName="role"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet author="Dev" id="create address table">
+        <createTable tableName="address">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="voivodeship" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="zip_code" type="VARCHAR(255)"/>
+            <column name="street" type="VARCHAR(255)"/>
+            <column name="house_number" type="integer"/>
+            <column name="flat_number" type="integer"/>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="address_pkey" tableName="address"/>
+    </changeSet>
+
+    <changeSet author="Dev" id="create electricity_service table">
+        <createTable tableName="electricity_service">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kw" type="integer"/>
+            <column name="note" type="VARCHAR(255)"/>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="electricity_service_pkey" tableName="electricity_service"/>
+    </changeSet>
+
+    <changeSet id="insert role" author="Dev">
+        <insert tableName="role">
+            <column name="id" valueSequenceNext="role_id_seq"/>
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" valueSequenceNext="role_id_seq"/>
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert address" author="Dev">
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value="30-120"/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="1"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value="30-120"/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="2"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value="30-120"/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="3"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value="20-120"/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="4"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value="20-612"/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="5"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value="20-120"/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="6"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value=""/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="7"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value=""/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="8"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueSequenceNext="address_id_seq"/>
+            <column name="country" value="Poland"/>
+            <column name="voivodeship" value="Krakowskie"/>
+            <column name="city" value="Krakow"/>
+            <column name="zip_code" value=""/>
+            <column name="street" value="Nowa"/>
+            <column name="house_number" value="1"/>
+            <column name="flat_number" value="9"/>
+        </insert>
+    </changeSet>
+    <changeSet id="insert account" author="Dev">
+        <insert tableName="account">
+            <column name="id" valueSequenceNext="account_id_seq"/>
+            <column name="name" value="Tom"/>
+            <column name="surname" value="Robins"/>
+        </insert>
+        <insert tableName="account">
+            <column name="id" valueSequenceNext="account_id_seq"/>
+            <column name="name" value="Rob"/>
+            <column name="surname" value="Marko"/>
+        </insert>
+        <insert tableName="account">
+            <column name="id" valueSequenceNext="account_id_seq"/>
+            <column name="name" value="Mister"/>
+            <column name="surname" value="Bean"/>
+        </insert>
+        <insert tableName="account">
+            <column name="id" valueSequenceNext="account_id_seq"/>
+            <column name="name" value="Check"/>
+            <column name="surname" value="Jerry"/>
+        </insert>
+        <insert tableName="account">
+            <column name="id" valueSequenceNext="account_id_seq"/>
+            <column name="name" value="Spider"/>
+            <column name="surname" value="Man"/>
+        </insert>
+    </changeSet>
+    <changeSet id="add account roles" author="Dev">
+        <insert tableName="account_roles">
+            <column name="account_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="account_roles">
+            <column name="account_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="account_roles">
+            <column name="account_id" value="2"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="account_roles">
+            <column name="account_id" value="3"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="account_roles">
+            <column name="account_id" value="4"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="account_roles">
+            <column name="account_id" value="5"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet id="insert electricity_service" author="Dev">
+        <insert tableName="electricity_service">
+            <column name="id" valueSequenceNext="electricity_service_id_seq"/>
+            <column name="account_id" value="1"/>
+            <column name="address_id" value="1"/>
+            <column name="kw" value="500"/>
+            <column name="note" value="usual account1"/>
+        </insert>
+        <insert tableName="electricity_service">
+            <column name="id" valueSequenceNext="electricity_service_id_seq"/>
+            <column name="account_id" value="2"/>
+            <column name="address_id" value="4"/>
+            <column name="kw" value="500"/>
+            <column name="note" value="usual account2"/>
+        </insert>
+        <insert tableName="electricity_service">
+            <column name="id" valueSequenceNext="electricity_service_id_seq"/>
+            <column name="account_id" value="3"/>
+            <column name="address_id" value="7"/>
+            <column name="kw" value="500"/>
+            <column name="note" value="usual account3"/>
+        </insert>
+<!--        <insert tableName="electricity_service">-->
+<!--            <column name="id" valueSequenceNext="electricity_service_id_seq"/>-->
+<!--            <column name="account_id" value="2"/>-->
+<!--            <column name="address_id" value="4"/>-->
+<!--            <column name="kw" value="220"/>-->
+<!--            <column name="note" value="usual account4"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="electricity_service">-->
+<!--            <column name="id" valueSequenceNext="electricity_service_id_seq"/>-->
+<!--            <column name="account_id" value="3"/>-->
+<!--            <column name="address_id" value="5"/>-->
+<!--            <column name="kw" value="220"/>-->
+<!--            <column name="note" value="usual account5"/>-->
+<!--        </insert>-->
+    </changeSet>
+</databaseChangeLog>
