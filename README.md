@@ -17,8 +17,8 @@ After a startup, you will have next users in the database:
 
 Admin:
 ```
-    username: Tom
-    password: Robins
+    name: Tom
+    surname: Robins
 ```
 
 Users:
