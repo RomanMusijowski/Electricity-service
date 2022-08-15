@@ -263,19 +263,5 @@
             <column name="kw" value="500"/>
             <column name="note" value="usual account3"/>
         </insert>
-<!--        <insert tableName="electricity_service">-->
-<!--            <column name="id" valueSequenceNext="electricity_service_id_seq"/>-->
-<!--            <column name="account_id" value="2"/>-->
-<!--            <column name="address_id" value="4"/>-->
-<!--            <column name="kw" value="220"/>-->
-<!--            <column name="note" value="usual account4"/>-->
-<!--        </insert>-->
-<!--        <insert tableName="electricity_service">-->
-<!--            <column name="id" valueSequenceNext="electricity_service_id_seq"/>-->
-<!--            <column name="account_id" value="3"/>-->
-<!--            <column name="address_id" value="5"/>-->
-<!--            <column name="kw" value="220"/>-->
-<!--            <column name="note" value="usual account5"/>-->
-<!--        </insert>-->
     </changeSet>
 </databaseChangeLog>
